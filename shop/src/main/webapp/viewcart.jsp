@@ -31,45 +31,30 @@ ResultSet resultSet = null;
 <tr bgcolor="#0439a3">
 <td><b>ID</b></td>
 <td><b>Title</b></td>
-<td><b>Manfactuer</b></td>
 <td><b>Price</b></td>
-<td><b>Category</b></td>
-<td><b>Image</b></td>
-<td><b>Stock</b></td>
+
 
 </tr>
 <%
 try{ 
 connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 statement=connection.createStatement();
-String sql ="SELECT * FROM product";
+String sql ="SELECT * FROM cart";
 
 resultSet = statement.executeQuery(sql);
 while(resultSet.next()){
 %>
-<% 
-for(int i=0; i<1; i++){
-	%>
+
 <tr bgcolor="#DEB887">
-<form method="post" action="cart.jsp">
+<form method="post" action="purchases.jsp">
 <td><%=resultSet.getString("id") %></td>
 <td><%=resultSet.getString("title") %></td>
-<td><%=resultSet.getString("manafactuer") %></td>
 <td><%=resultSet.getString("price") %></td>
-<td><%=resultSet.getString("category") %></td>
-<td><%=resultSet.getString("image") %></td>
-<td><%=resultSet.getString("stock") %></td>
-
-<%String name;
-session.setAttribute("name",resultSet.getString("title"));%>
-<%String price;
-session.setAttribute("pri",resultSet.getString("price"));%>
 
 
-<td> <input type="submit" value="Add To Cart" /> </td>
-<%}%>
+
 </tr>
-</form>
+
 <% 
 }
 
@@ -77,8 +62,8 @@ session.setAttribute("pri",resultSet.getString("price"));%>
 e.printStackTrace();
 }
 %>
+ <input type="submit" value="Purchase" /> 
 <a href="success.jsp">Home</a>
-<a href="purchases.jsp">Buy</a>
-<a href="viewcart.jsp">View Cart</a>
+<a href="viewprods.jsp">Back</a>
+ 
 </table>
-                    

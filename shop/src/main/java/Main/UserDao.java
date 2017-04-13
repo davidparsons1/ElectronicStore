@@ -16,7 +16,7 @@ public class UserDao {
 	}
 
 	public UserDao(){
-		 User p = new User("Bill", "hello");
+		 User p = new User("test", "test");
 		createUser(p);
 	}
 

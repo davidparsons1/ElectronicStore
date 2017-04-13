@@ -9,9 +9,16 @@ You are not logged in<br/>
 <body bgcolor="grey">
 Welcome <%=session.getAttribute("username")%>
 <a href='logout.jsp'>Log out</a>
-<a href="product.jsp">Add product</a>
-<a href="viewprods.jsp">View product</a>
+<%
 
+    if ((session.getAttribute("username")).equals("admin")) {
+%>
+
+<a href="product.jsp">Add Product</a>
+
+<%}%>
+<a href="viewprods.jsp">View product</a>
+<a href="purchasehist.jsp">Purchase History</a>
 <%
     }
 %>

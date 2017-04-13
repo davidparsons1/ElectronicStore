@@ -13,7 +13,9 @@
     //ResultSet rs;
     int i = st.executeUpdate("insert into Product(title, manafactuer, price, category, image, stock) values ('" + title + "','" + manafactuer + "','" + price + "','" + catagory + "','" + image + "','" + stock + "')");
     if (i > 0) {
-        response.sendRedirect("welcome.jsp");
+        //session.setAttribute("userid", user);
+        response.sendRedirect("success.jsp");
+       // out.print("Registration Successfull!"+"<a href='index.jsp'>Go to Login</a>");
     } else {
         response.sendRedirect("success.jsp");
     }

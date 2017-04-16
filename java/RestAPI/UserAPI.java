@@ -5,6 +5,7 @@ import dao.*;
 import entity.*;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ public class UserAPI {
 
   private UserDao userDao = new UserDao();
   private productDao productDao = new productDao();
+  private AdminDAO adminDAO = new AdminDAO();
 
 
 
@@ -79,19 +81,6 @@ public class UserAPI {
         return  product;
     }
 
-    @POST
-    @Path(value="/addToCart")
-    public void addToCart(Product p){
-
-      String t = p.getTitle();
-      double pr = p.getPrice();
-
-      Cart c = new Cart(t,pr);
-
-      CartDao.addToCart(c);
-
-    }
-
     @GET
     @Path(value="/getAllProducts")
     @Produces(value={"application/json"})
@@ -99,6 +88,57 @@ public class UserAPI {
 
         List<Product> resultList = productDao.findAllProducts();
         return resultList;
+    }
+
+    @GET
+    @Path(value="/getAllAdmin")
+    @Produces(value={"application/json"})
+    public List<Admin> findAllAdmins(){
+        return AdminDAO.findAllAdmins();
+    }
+
+    @POST
+    @Path(value="/addAdmin")
+    @Produces(value={"application/json"})
+    public Admin addAdmin(String adminJson) {
+        Admin admin = null;
+        try {
+            admin = mapAdmin(adminJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        adminDAO.createAdmin(admin);
+        return admin;
+    }
+
+    @POST
+    @Path(value="/loginAdmin")
+    @Produces(value={"application/json"})
+    public Admin loginAdmin(String adminJson){
+        Admin admin = null;
+        try {
+            admin = mapAdmin(adminJson);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert admin != null;
+        Admin a =adminDAO.findByUserName(admin.getUsername());
+        if(admin.getPassword().equals(a.getPassword()))
+            return admin;
+        else
+            return null;
+    }
+
+
+    private Admin mapAdmin(String adminJson) throws IOException {
+        Admin admin = null;
+        admin = new ObjectMapper().readValue(adminJson, Admin.class);
+
+        return admin;
+
     }
 
 

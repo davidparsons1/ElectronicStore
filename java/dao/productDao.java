@@ -2,9 +2,6 @@ package dao;
 
 import java.util.List;
 
-/**
- * Created by David on 14/04/2017.
- */
 import entity.Product;
 import persistence.PersistenceUtil;
 import entity.User;

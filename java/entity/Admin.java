@@ -3,6 +3,11 @@ package entity;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
+@NamedQueries({
+        @NamedQuery(name = "Admin.findAll", query = "select o from Admin o"),
+        @NamedQuery(name = "Admin.findByUsername", query = "select o from Admin o where o.username=:username"),
+})
+
 @XmlRootElement
 @Entity
 public class Admin {
